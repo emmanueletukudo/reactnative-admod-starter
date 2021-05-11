@@ -16,18 +16,33 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob';
 
 const App = () => {
- 
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+    <SafeAreaView>
+      <StatusBar />
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
-          <Text>Hello World</Text>
+          <Text>Reward Ads</Text>
+        </View>
+        <View>
+          <Text>Interstitial Ads</Text>
+        </View>
+        <View>
+          <BannerAd
+            unitId={TestIds.BANNER}
+            size={BannerAdSize.SMART_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+            onAdLoaded={() => {
+              console.log('Advert loaded');
+            }}
+            onAdFailedToLoad={error => {
+              console.error('Advert failed to load: ', error);
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
